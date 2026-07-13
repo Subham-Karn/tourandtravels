@@ -1,0 +1,86 @@
+
+
+<section class="services" id="services">
+
+    <!-- Section Heading -->
+
+    <h1 class="heading">
+
+        <span>S</span>
+        <span>E</span>
+        <span>R</span>
+        <span>V</span>
+        <span>I</span>
+        <span>C</span>
+        <span>E</span>
+        <span>S</span>
+
+    </h1>
+
+    <% const services = [
+
+        {
+            icon:"fas fa-hotel",
+            title:"Affordable Hotels",
+            description:"Stay at comfortable and budget-friendly hotels with excellent hospitality."
+        },
+
+        {
+            icon:"fas fa-utensils",
+            title:"Food & Drinks",
+            description:"Enjoy delicious local cuisines and refreshing beverages during your journey."
+        },
+
+        {
+            icon:"fas fa-bullhorn",
+            title:"Travel Guide",
+            description:"Experienced guides help you explore every destination safely."
+        },
+
+        {
+            icon:"fas fa-globe-asia",
+            title:"Tour Packages",
+            description:"Domestic and international travel packages at affordable prices."
+        },
+
+        {
+            icon:"fas fa-plane",
+            title:"Fast Booking",
+            description:"Quick hotel, flight and transport booking with instant confirmation."
+        },
+
+        {
+            icon:"fas fa-hiking",
+            title:"Adventure Trips",
+            description:"Enjoy trekking, camping, wildlife tours and unforgettable adventures."
+        }
+
+    ]; %>
+
+    <div class="box-container">
+
+        <% services.forEach(service=>{ %>
+
+            <div class="box">
+
+                <i class="<%= service.icon %>"></i>
+
+                <h3>
+
+                    <%= service.title %>
+
+                </h3>
+
+                <p>
+
+                    <%= service.description %>
+
+                </p>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</section>

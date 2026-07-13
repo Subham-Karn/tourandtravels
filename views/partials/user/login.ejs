@@ -1,0 +1,73 @@
+<div class="login-form-container">
+
+    <!-- Close Button -->
+    <i
+        class="fas fa-times"
+        id="form-close"
+    ></i>
+
+    <form action="/login" method="POST">
+
+        <h3>User Login</h3>
+
+        <input
+            type="email"
+            class="box"
+            name="email"
+            placeholder="Enter Email"
+            required
+        >
+
+        <input
+            type="password"
+            class="box"
+            name="password"
+            placeholder="Enter Password"
+            required
+        >
+
+        <button
+            type="submit"
+            class="btn"
+        >
+            Login
+        </button>
+
+        <input
+            type="checkbox"
+            id="remember"
+        >
+
+        <label for="remember">
+
+            Remember Me
+
+        </label>
+
+        <p>
+
+            Forgot Password?
+
+            <a href="/forgot-password">
+
+                Click Here
+
+            </a>
+
+        </p>
+
+        <p>
+
+            Don't have an account?
+
+            <a href="/register">
+
+                Register Now
+
+            </a>
+
+        </p>
+
+    </form>
+
+</div>

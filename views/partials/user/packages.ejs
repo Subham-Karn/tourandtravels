@@ -1,0 +1,114 @@
+<section class="packages" id="packages">
+
+    <h1 class="heading">
+
+        <span>P</span>
+        <span>A</span>
+        <span>C</span>
+        <span>K</span>
+        <span>A</span>
+        <span>G</span>
+        <span>E</span>
+        <span>S</span>
+
+    </h1>
+
+    <div class="box-container">
+
+        <% const packages = [
+
+        {
+            city:"Patna",
+            image:"image4.webp"
+        },
+
+        {
+            city:"Bodh Gaya",
+            image:"bhodgaya.jpeg"
+        },
+
+        {
+            city:"Nalanda",
+            image:"glass bridge.jpg"
+        },
+
+        {
+            city:"Sitamarhi",
+            image:"image22.jpeg"
+        },
+
+        {
+            city:"Monastery",
+            image:"bodhgaya3.jpeg"
+        },
+
+        {
+            city:"Sasaram",
+            image:"sasaram2.jpeg"
+        }
+
+        ]; %>
+
+        <% packages.forEach(place=>{ %>
+
+        <div class="box">
+
+            <img
+                src="/images/<%= place.image %>"
+                alt="<%= place.city %>"
+            >
+
+            <div class="content">
+
+                <h3>
+
+                    <i class="fas fa-map-marker-alt"></i>
+
+                    <%= place.city %>
+
+                </h3>
+
+                <p>
+
+                    Experience the beauty of
+                    <%= place.city %> with our premium travel packages.
+
+                </p>
+
+                <div class="stars">
+
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+
+                </div>
+
+                <div class="price">
+
+                    ₹5,000
+
+                    <span>
+
+                        ₹8,000
+
+                    </span>
+
+                </div>
+
+                <a href="#book" class="btn">
+
+                    Book Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <% }) %>
+
+    </div>
+
+</section>

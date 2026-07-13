@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/style/index.css">
-    <title>Tour and Travels</title>
+
+    <title>Bihar Travel | Tour & Travels</title>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    > <link
+        rel="stylesheet"
+        href="/css/index.css"
+    >
+
 </head>
+
 <body>
+
     <%- include("./partials/user/navbar") %>
-    <h1>Welcome to Tour and Travel </h1>
-    <p>by Nidhi Kumari </p>
+
+    <%- include("./partials/user/login") %>
+
+    <%- include("./partials/user/hero") %>
+
+    <%- include("./partials/user/booking") %>
+
+    <%- include("./partials/user/packages") %>
+
+    <%- include("./partials/user/services") %>
+
+    <%- include("./partials/user/gallery") %>
+
+    <%- include("./partials/user/reviews") %>
+
+    <%- include("./partials/user/contact") %>
+
+    <%- include("./partials/user/brand") %>
+
     <%- include("./partials/user/footer") %>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script src="/js/script.js"></script>
+
 </body>
+
 </html>

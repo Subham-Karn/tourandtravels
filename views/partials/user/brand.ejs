@@ -1,0 +1,35 @@
+<section class="brand-container">
+
+    <% const brands = [
+
+        "1.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png"
+
+    ]; %>
+
+    <div class="swiper-container brand-slider">
+
+        <div class="swiper-wrapper">
+
+            <% brands.forEach(brand=>{ %>
+
+                <div class="swiper-slide">
+
+                    <img
+                        src="/images/<%= brand %>"
+                        alt="Brand Partner"
+                    >
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    </div>
+
+</section>

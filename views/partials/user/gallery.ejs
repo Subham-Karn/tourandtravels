@@ -1,0 +1,71 @@
+<section class="gallery" id="gallery">
+
+    <h1 class="heading">
+
+        <span>G</span>
+        <span>A</span>
+        <span>L</span>
+        <span>L</span>
+        <span>E</span>
+        <span>R</span>
+        <span>Y</span>
+
+    </h1>
+
+    <% const gallery = [
+
+        "GadiSagar.jpg",
+        "Nalanda.jpeg",
+        "banka.jpeg",
+        "image21.jpeg",
+        "image23.jpeg",
+        "image24.jpeg",
+        "image25.jpeg",
+        "bodhgaya2.jpeg",
+        "p-1.jpg",
+        "p-2.jpg",
+        "p-3.jpg",
+        "p-4.avif"
+
+    ]; %>
+
+    <div class="box-container">
+
+        <% gallery.forEach(image=>{ %>
+
+            <div class="box">
+
+                <img
+                    src="/images/<%= image %>"
+                    alt="Tour Gallery"
+                >
+
+                <div class="content">
+
+                    <h3>
+
+                        Amazing Place
+
+                    </h3>
+
+                    <p>
+
+                        Explore breathtaking destinations with Bihar Travel.
+
+                    </p>
+
+                    <a href="#book" class="btn">
+
+                        Book Now
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</section>
