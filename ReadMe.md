@@ -41,38 +41,6 @@ A dynamic Tour & Travels web application built using **Node.js, Express.js, EJS,
 
 ---
 
-## 📁 Project Structure
-
-```text
-Tour-Travels/
-│
-├── public/
-│   ├── css/
-│   ├── js/
-│   ├── images/
-│   └── assets/
-│
-├── views/
-│   ├── partials/
-│   │   ├── header.ejs
-│   │   └── footer.ejs
-│   ├── home.ejs
-│   ├── about.ejs
-│   ├── tours.ejs
-│   ├── destinations.ejs
-│   ├── contact.ejs
-│   └── package-details.ejs
-│
-├── routes/
-│   └── index.js
-│
-├── app.js
-├── package.json
-└── README.md
-```
-
----
-
 ## ⚙️ Installation
 
 ### Clone Repository
