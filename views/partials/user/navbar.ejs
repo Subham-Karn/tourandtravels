@@ -1,49 +1,93 @@
 <header class="header">
 
-    <!-- Mobile Menu Button -->
     <div id="menu-bar" class="fas fa-bars"></div>
 
-    <!-- Logo -->
     <a href="/" class="logo">
         <span>B</span>ihar Travel
     </a>
 
-    <!-- Navigation Menu -->
     <nav class="navbar">
-
-        <a href="#home">Home</a>
-
+        <a href="/">Home</a>
         <a href="#book">Book</a>
-
         <a href="#packages">Packages</a>
-
         <a href="#services">Services</a>
-
         <a href="#gallery">Gallery</a>
-
         <a href="#review">Reviews</a>
-
         <a href="#contact">Contact</a>
-
     </nav>
 
-    <!-- Header Icons -->
     <div class="icons">
 
-        <!-- Search -->
         <i class="fas fa-search" id="search-btn"></i>
 
-        <!-- Login -->
-        <i class="fas fa-user" id="login-btn"></i>
+        <% if(user){ %>
+
+            <div class="profile-dropdown">
+
+                <div class="profile-circle">
+                    <%= user.fullName.charAt(0).toUpperCase() %>
+                </div>
+
+                <div class="dropdown-menu">
+
+                    <div class="profile-info">
+                        <h3><%= user.fullName %></h3>
+                        <p><%= user.email %></p>
+
+                        <hr>
+
+                        <p><strong>Age :</strong> <%= user.age %></p>
+                        <p><strong>Gender :</strong> <%= user.gender %></p>
+                    </div>
+
+                    <a href="/my-bookings">
+                        <i class="fas fa-suitcase"></i>
+                        My Bookings
+                    </a>
+
+                    <a href="/profile">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+
+                    <a href="/auth/logout" class="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+
+                </div>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="auth-buttons">
+
+                <a href="/auth/login" class="login-btn">
+                    Login
+                </a>
+
+                <a href="/auth/signup" class="signup-btn">
+                    Sign Up
+                </a>
+
+            </div>
+
+        <% } %>
 
     </div>
 
-    <!-- Search Bar -->
     <form class="search-bar-container">
 
-        <input type="search" id="search-bar" placeholder="Search destinations...">
+        <input
+            type="search"
+            id="search-bar"
+            placeholder="Search destinations...">
 
-        <label for="search-bar" class="fas fa-search"></label>
+        <label
+            for="search-bar"
+            class="fas fa-search">
+        </label>
 
     </form>
 

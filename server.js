@@ -1,9 +1,12 @@
 import "dotenv/config.js";
 import express from "express";
 import path from "path";
-import indexRoute from "./routes/indexRoute.js";
 import connectDb from "./config/dbConfig.js";
 import session from "express-session";
+
+// routes config;
+import authRoutes from "./routes/authRoutes.js";
+import indexRoute from "./routes/indexRoute.js";
 
 // server config.
 const PORT = process.env.PORT;
@@ -31,6 +34,7 @@ server.use(session({
 
 //  routes config.
 server.use("/" , indexRoute);
+server.use("/auth", authRoutes);
 
 // server start
 server.listen(PORT , ()=>{

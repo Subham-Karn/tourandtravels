@@ -7,15 +7,34 @@
 const searchBtn = document.querySelector("#search-btn");
 const searchBar = document.querySelector(".search-bar-container");
 
-const loginBtn = document.querySelector("#login-btn");
-const loginForm = document.querySelector(".login-form-container");
-const formClose = document.querySelector("#form-close");
-
-const menuBar = document.querySelector("#menu-bar");
+const menu = document.querySelector("#menu-bar");
 const navbar = document.querySelector(".navbar");
 
 const videoButtons = document.querySelectorAll(".vid-btn");
 const videoSlider = document.querySelector("#video-slider");
+
+
+
+menu.addEventListener("click", () => {
+    menu.classList.toggle("fa-times");
+    navbar.classList.toggle("active");
+});
+
+// Close menu when clicking a nav link
+document.querySelectorAll(".navbar a").forEach(link => {
+    link.addEventListener("click", () => {
+        menu.classList.remove("fa-times");
+        navbar.classList.remove("active");
+    });
+});
+
+// Close menu on resize
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+        menu.classList.remove("fa-times");
+        navbar.classList.remove("active");
+    }
+});
 
 
 /* =========================================================
@@ -59,31 +78,6 @@ if (searchBtn && searchBar) {
 
         searchBtn.classList.toggle("fa-times");
         searchBar.classList.toggle("active");
-
-    });
-
-}
-
-
-/* =========================================================
-   Login Popup
-========================================================= */
-
-if (loginBtn && loginForm) {
-
-    loginBtn.addEventListener("click", () => {
-
-        loginForm.classList.add("active");
-
-    });
-
-}
-
-if (formClose && loginForm) {
-
-    formClose.addEventListener("click", () => {
-
-        loginForm.classList.remove("active");
 
     });
 

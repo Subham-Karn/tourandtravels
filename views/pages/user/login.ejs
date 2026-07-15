@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Login | Bhart Travels</title>
+</head>
+
+<body>
+    <div class="error-message"></div>
+    <form action="/auth/login" method="post">
+        <!-- header -->
+        <div>
+            <h1>Login User</h1>
+            <p>Fill the Credenatils to Login your Account</p>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Enter Email">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter Password">
+        </div>
+        <div>
+            <div>
+                <input type="checkbox" name="remember-me">
+                <label for="remember-me">Remember Me</label>
+            </div>
+            <a href="/auth/forget-password">Forget Password</a>
+        </div>
+        <button type="submit">Login</button>
+        <p>
+            Don't have an account? <a href="/auth/signup">Sign Up</a>
+        </p>
+    </form>
+    <script>
+        window.pageData = `<%- JSON.stringify({
+            success,
+            message
+        }) %>`;
+    </script>
+    <script src="/js/loginScript.js"></script>
+</body>
+
+</html>

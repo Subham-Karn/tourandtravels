@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>
+        <%= user.fullName %> | Profile
+    </title>
+</head>
+
+<body>
+
+    <%- include("../../partials/user/navbar") %>
+
+        <main class="profile-container">
+
+            <div class="profile-header">
+
+                <div class="banner"></div>
+
+                <div class="avatar">
+                    <%= user.fullName.charAt(0).toUpperCase() %>
+                </div>
+
+                <h2>
+                    <%= user.fullName %>
+                </h2>
+
+            </div>
+
+            <div class="profile-body">
+
+                <aside class="sidebar">
+
+                    <a href="/my-bookings">
+                        <i class="fas fa-suitcase"></i>
+                        My Bookings
+                    </a>
+
+                    <a href="/change-password">
+                        <i class="fas fa-lock"></i>
+                        Change Password
+                    </a>
+
+                    <a href="/auth/logout" class="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+
+                </aside>
+
+                <section class="details">
+
+                    <div class="row">
+                        <span>Full Name</span>
+                        <p>
+                            <%= user.fullName %>
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <span>Email</span>
+                        <p>
+                            <%= user.email %>
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <span>Gender</span>
+                        <p>
+                            <%= user.gender %>
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <span>Age</span>
+                        <p>
+                            <%= user.age %>
+                        </p>
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+        <%- include("../../partials/user/footer") %>
+      <script src="/js/script.js"></script>
+</body>
+
+</html>

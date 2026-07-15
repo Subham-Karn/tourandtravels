@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/signup.css">
+    <title>Sign Up | Bharat Travels</title>
+</head>
+
+<body>
+
+    <form action="/auth/signup" method="POST">
+
+        <!-- Header -->
+        <div>
+            <h2>Sign Up</h2>
+            <p>Create Your Bharat Travels Account</p>
+        </div>
+
+        <!-- Full Name -->
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullName" placeholder="Enter your full name" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <!-- Age -->
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="1" placeholder="Enter your age" required>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+            <label>Gender</label>
+
+            <div class="gender-group">
+
+                <label>
+                    <input type="radio" name="gender" value="male" required>
+                    Male
+                </label>
+
+                <label>
+                    <input type="radio" name="gender" value="female">
+                    Female
+                </label>
+
+                <label>
+                    <input type="radio" name="gender" value="other">
+                    Other
+                </label>
+
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <!-- Button -->
+        <button type="submit">
+            Create Account
+        </button>
+
+        <!-- Footer -->
+        <p class="bottom-text">
+            Already have an account?
+            <a href="/auth/login">Login</a>
+        </p>
+
+    </form>
+    <script>
+        window.pageData = `<%- JSON.stringify({
+            success,
+            message,
+        }) %>`;
+    </script>
+
+<script src="/js/signupScipt.js"></script>
+
+</body>
+
+</html>
