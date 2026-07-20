@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= gallery.galleryName %> | Bihar Travel</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/gallery-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <%- include("../../partials/user/navbar") %>
+
+    <main>
+        <!-- HERO -->
+        <section class="gallery-hero">
+            <img src="<%= gallery.galleryImage %>" alt="<%= gallery.galleryName %>">
+            <div class="overlay"></div>
+            <div class="hero-content">
+                <span class="category"><%= gallery.category %></span>
+                <h1><%= gallery.galleryName %></h1>
+                <p><i class="fa-solid fa-location-dot"></i> <%= gallery.location %>, <%= gallery.state %>, <%= gallery.country %></p>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i> <span><%= gallery.rating %>/5</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETAILS & SIDEBAR -->
+        <section class="details container">
+            <div class="left">
+                <h2>About <%= gallery.galleryName %></h2>
+                <p><%= gallery.description %></p>
+
+                <div class="info-grid">
+                    <div class="info-card"><i class="fa-solid fa-location-dot"></i><h3>Location</h3><p><%= gallery.location %></p></div>
+                    <div class="info-card"><i class="fa-solid fa-earth-asia"></i><h3>State</h3><p><%= gallery.state %></p></div>
+                    <div class="info-card"><i class="fa-solid fa-flag"></i><h3>Country</h3><p><%= gallery.country %></p></div>
+                    <div class="info-card"><i class="fa-solid fa-tags"></i><h3>Category</h3><p><%= gallery.category %></p></div>
+                    <div class="info-card"><i class="fa-solid fa-calendar-days"></i><h3>Best Time</h3><p><%= gallery.bestTimeToVisit %></p></div>
+                    <div class="info-card"><i class="fa-solid fa-clock"></i><h3>Opening Hours</h3><p><%= gallery.openingHours %></p></div>
+                    <div class="info-card"><i class="fa-solid fa-ticket"></i><h3>Entry Fee</h3><p><%= gallery.entryFee %></p></div>
+                    <div class="info-card"><i class="fa-solid fa-star"></i><h3>Rating</h3><p><%= gallery.rating %>/5</p></div>
+                </div>
+            </div>
+
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <img src="<%= gallery.galleryImage %>" alt="<%= gallery.galleryName %>" class="sidebar-image">
+                    <h3><%= gallery.galleryName %></h3>
+                    <p><i class="fa-solid fa-location-dot"></i> <%= gallery.location %></p>
+                    <div class="quick-info">
+                        <div><strong>Category</strong> <span><%= gallery.category %></span></div>
+                        <div><strong>Status</strong> <span><%= gallery.status %></span></div>
+                    </div>
+                    <% if(gallery.featured){ %><span class="featured-badge">⭐ Featured</span><% } %>
+
+                    <!-- Auth-based booking button -->
+                    <% if(user){ %>
+                        <button class="btn book-gallery-btn" style="width:100%;text-align:center;margin-top:10px;cursor:pointer;" data-destination="<%= gallery.galleryName %>, <%= gallery.location %>">
+                            <i class="fa-solid fa-calendar-check"></i> Book Tour
+                        </button>
+                    <% } else { %>
+                        <a href="/auth/login" class="btn" style="display:block;text-align:center;margin-top:10px;">
+                            <i class="fa-solid fa-lock"></i> Login to Book
+                        </a>
+                    <% } %>
+                </div>
+            </aside>
+        </section>
+
+        <!-- Booking Form Section (shown if logged in) -->
+        <% if(user){ %>
+            <section class="booking-section container" id="gallery-booking" style="display:none;">
+                <h2 class="section-title">Book Your Visit to <%= gallery.galleryName %></h2>
+                <form action="/booking" method="POST" class="gallery-booking-form">
+                    <input type="hidden" name="destination" id="gallery-destination" value="<%= gallery.galleryName %>, <%= gallery.location %>">
+
+                    <div class="booking-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="<%= user.fullName %>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" value="<%= user.email %>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Guests</label>
+                            <input type="number" name="guests" min="1" placeholder="Number of Guests" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Arrival Date</label>
+                            <input type="date" name="arrival" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Leaving Date</label>
+                            <input type="date" name="leaving" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="margin-top:15px;background:#28a745;">
+                        <i class="fa-solid fa-check-circle"></i> Confirm Booking
+                    </button>
+                </form>
+            </section>
+        <% } %>
+
+        <!-- Map Section -->
+        <section class="map-section container">
+            <h2 class="section-title">Location Map</h2>
+            <div class="map">
+                <iframe
+                    src="https://maps.google.com/maps?q=<%= gallery.location %>,<%= gallery.state %>,<%= gallery.country %>&z=14&output=embed"
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    loading="lazy"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- RELATED -->
+        <section class="related-destinations container">
+            <h2 class="section-title">You May Also Like</h2>
+            <div class="related-grid">
+                <% if(related && related.length){ %>
+                    <% related.forEach(place => { %>
+                        <div class="related-card">
+                            <img src="<%= place.galleryImage %>" alt="<%= place.galleryName %>">
+                            <div class="related-content">
+                                <h3><%= place.galleryName %></h3>
+                                <a href="/gallery/<%= place._id %>" class="btn">Explore</a>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No related destinations found.</p>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <%- include("../../partials/user/footer") %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookBtn = document.querySelector('.book-gallery-btn');
+            const bookingSection = document.getElementById('gallery-booking');
+            const destInput = document.getElementById('gallery-destination');
+
+            if (bookBtn && bookingSection) {
+                bookBtn.addEventListener('click', function() {
+                    if (bookingSection.style.display === 'none' || !bookingSection.style.display) {
+                        bookingSection.style.display = 'block';
+                        bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bookBtn.textContent = 'Hide Booking Form';
+                    } else {
+                        bookingSection.style.display = 'none';
+                        bookBtn.textContent = 'Book Tour';
+                    }
+                });
+            }
+        });
+    </script>
+    <style>
+        .booking-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .booking-section .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .booking-section .form-group label {
+            font-weight: 600;
+            color: #444;
+            font-size: 0.9rem;
+        }
+        .booking-section .form-group input {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .booking-section .form-group input:focus {
+            border-color: #ffa500;
+            outline: none;
+        }
+        .booking-section .form-group input[readonly] {
+            background: #f8f9fa;
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .booking-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <script src="/js/script.js"></script>
+</body>
+</html>

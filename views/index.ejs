@@ -26,19 +26,19 @@
 
     <%- include("./partials/user/hero") %>
 
-    <%- include("./partials/user/booking") %>
-
-    <%- include("./partials/user/packages") %>
+    <%- include("./partials/user/packages" , {packages}) %>
 
     <%- include("./partials/user/services") %>
 
-    <%- include("./partials/user/gallery") %>
+    <%- include("./partials/user/gallery" , {galleries}) %>
 
     <%- include("./partials/user/reviews") %>
 
     <%- include("./partials/user/contact") %>
 
     <%- include("./partials/user/brand") %>
+
+    <%- include("./partials/user/booking-modal", {user}) %>
 
     <%- include("./partials/user/footer") %>
 

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Panel | <%= pageName %></title>
+
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/packages.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+<%- include("../../partials/admin/slider",{user,currentPath}) %>
+
+<main>
+
+    <!-- Header -->
+
+    <section class="page-header">
+
+        <div>
+            <h1>Tour Packages</h1>
+            <p>Manage all travel packages.</p>
+        </div>
+
+        <a href="/admin/packages/add" class="add-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Package
+        </a>
+
+    </section>
+
+    <!-- Statistics -->
+
+    <section class="stats">
+
+        <div class="card">
+            <p>Total Packages</p>
+            <h1><%= packages.length %></h1>
+        </div>
+
+        <div class="card">
+            <p>Average Rating</p>
+            <h1>
+                <%= packages.length
+                ? (packages.reduce((a,b)=>a+b.packageRating,0)/packages.length).toFixed(1)
+                : "0" %> ⭐
+            </h1>
+        </div>
+
+    </section>
+
+    <!-- Table -->
+
+    <section class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Package Name</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                    <th>Created</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            <% if(packages.length){ %>
+
+                <% packages.forEach((pkg,index)=>{ %>
+
+                    <tr>
+
+                        <td><%= index+1 %></td>
+
+                        <td>
+
+                            <img
+                                src="<%= pkg.packageImage %>"
+                                class="package-image"
+                                alt="<%= pkg.packageName %>"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <strong><%= pkg.packageName %></strong>
+
+                        </td>
+
+                        <td>
+
+                            ₹<%= pkg.packagePrice.toLocaleString() %>
+
+                        </td>
+
+                        <td>
+
+                            ⭐ <%= pkg.packageRating %>
+
+                        </td>
+
+                        <td>
+
+                            <%= new Date(pkg.createdAt).toLocaleDateString() %>
+
+                        </td>
+
+                        <td>
+
+                            <a
+                                href="/admin/packages/edit/<%= pkg._id %>"
+                                class="action edit"
+                            >
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+
+                            <a
+                                href="/admin/packages/delete/<%= pkg._id %>"
+                                class="action delete"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            <% } else { %>
+
+                <tr>
+
+                    <td colspan="7" class="empty">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                        <h2>No Packages Found</h2>
+
+                        <p>Add your first travel package.</p>
+
+                    </td>
+
+                </tr>
+
+            <% } %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+</html>

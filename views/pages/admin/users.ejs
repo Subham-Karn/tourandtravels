@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/users.css">
+
+    <title>Admin Panel | <%= pageName %></title>
+</head>
+<body>
+
+    <%- include("../../partials/admin/slider", { user }) %>
+
+    <main>
+
+        <!-- Page Heading -->
+        <section class="page-header">
+            <h1>Users</h1>
+            <p>Manage your users activity.</p>
+        </section>
+
+        <!-- Statistics -->
+        <section class="stats">
+
+            <div class="card">
+                <p>Total Users</p>
+                <h1><%= users.length %></h1>
+            </div>
+
+            <div class="card">
+                <p>Admins</p>
+                <h1><%= users.filter(u => u.role === "admin").length %></h1>
+            </div>
+
+            <div class="card">
+                <p>Normal Users</p>
+                <h1><%= users.filter(u => u.role === "user").length %></h1>
+            </div>
+
+        </section>
+
+        <!-- Search -->
+        <section class="filter-box">
+
+            <form action="/admin/users" method="GET">
+
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Search by Name, Email or ID"
+                    value="<%= typeof q !== 'undefined' ? q : '' %>"
+                >
+
+                <select name="status">
+
+                    <option value="all">All</option>
+
+                    <option
+                        value="admin"
+                        <%= status === "admin" ? "selected" : "" %>>
+                        Admin
+                    </option>
+
+                    <option
+                        value="user"
+                        <%= status === "user" ? "selected" : "" %>>
+                        User
+                    </option>
+
+                </select>
+
+            </form>
+
+        </section>
+
+        <!-- Table -->
+        <section class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <% if(users.length > 0){ %>
+
+                        <% users.forEach((user,index)=>{ %>
+
+                            <tr>
+
+                                <td><%= index + 1 %></td>
+
+                                <td><%= user.fullName %></td>
+
+                                <td><%= user.email %></td>
+
+                                <td><%= user.age || "-" %></td>
+
+                                <td><%= user.gender || "-" %></td>
+
+                                <td>
+
+                                    <span class="role <%= user.role %>">
+                                        <%= user.role %>
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        <% }) %>
+
+                    <% } else { %>
+
+                        <tr>
+
+                            <td colspan="7" style="text-align:center;padding:30px;">
+                                No Users Found
+                            </td>
+
+                        </tr>
+
+                    <% } %>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <script src="/js/admin/users.js"></script>
+
+</body>
+</html>

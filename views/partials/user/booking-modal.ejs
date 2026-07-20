@@ -1,0 +1,247 @@
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Book Your Tour</h2>
+        <p class="modal-subtitle">Fill in the details to book this package.</p>
+        
+        <% if(user){ %>
+            <form id="bookingForm" action="/booking" method="POST" class="booking-form">
+                <input type="hidden" name="destination" id="modalDestination">
+                
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" value="<%= user.fullName %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" value="<%= user.email %>" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Number of Guests</label>
+                    <input type="number" name="guests" min="1" placeholder="Number of Guests" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Arrival Date</label>
+                        <input type="date" name="arrival" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Leaving Date</label>
+                        <input type="date" name="leaving" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-book">
+                    <i class="fas fa-check-circle"></i> Confirm Booking
+                </button>
+            </form>
+        <% } else { %>
+            <div class="login-prompt">
+                <i class="fas fa-lock"></i>
+                <h3>Login Required</h3>
+                <p>Please login to book a package.</p>
+                <a href="/auth/login" class="btn">Login Now</a>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 2.5rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideDown 0.3s;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.modal-content h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.modal-subtitle {
+    color: #888;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.booking-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.booking-form label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.booking-form input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.booking-form input:focus {
+    border-color: #ffa500;
+    outline: none;
+}
+
+.booking-form input[readonly] {
+    background: #f8f9fa;
+    color: #666;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-book {
+    width: 100%;
+    padding: 14px;
+    background: #ffa500;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 0.5rem;
+}
+
+.btn-book:hover {
+    background: #ff8c00;
+}
+
+.login-prompt {
+    text-align: center;
+    padding: 2rem;
+}
+
+.login-prompt i {
+    font-size: 4rem;
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
+.login-prompt h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.login-prompt p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.login-prompt .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #ffa500;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .modal-content { margin: 10% auto; padding: 1.5rem; width: 95%; }
+    .form-row { grid-template-columns: 1fr; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('bookingModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const bookBtns = document.querySelectorAll('.book-now-btn');
+    const destInput = document.getElementById('modalDestination');
+
+    bookBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const packageName = this.getAttribute('data-package');
+            if (destInput) destInput.value = packageName || 'Tour Package';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Handle gallery book buttons
+    const galleryBookBtns = document.querySelectorAll('.book-gallery-index-btn');
+    galleryBookBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const destination = this.getAttribute('data-destination');
+            if (destInput) destInput.value = destination || 'Gallery Destination';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    }
+
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+});
+</script>

@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { normalize } from "../utils/normalize.js";
 
 
 const isLoggedIn = async (req, res, next) => {
@@ -8,7 +9,7 @@ const isLoggedIn = async (req, res, next) => {
         }
 
         const user = await User.findById(req.session.user.id);
-
+        
         if (!user) {
             console.log("User not found or session invalid.");
             req.session.destroy();
@@ -34,8 +35,7 @@ const isAdmin = (req, res, next) => {
     if (!req.session.user) {
         return res.redirect("/auth/login");
     }
-
-    if (req.session.user.role !== "Admin") {
+    if (normalize(req.session?.user?.role) !== "admin") {
         return res.status(403).render("403", {
             success: false,
             message: "Access Denied!"

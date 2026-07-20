@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Edit Package</title>
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/edit-package.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <%- include("../../partials/admin/slider",{user,currentPath}) %>
+
+    <% if(typeof error !== "undefined" && error){ %>
+        <div class="alert error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span><%= error %></span>
+        </div>
+    <% } %>
+
+    <main>
+        <section class="page-header">
+            <div>
+                <h1>Edit Package</h1>
+                <p>Update travel package details.</p>
+            </div>
+            <a href="/admin/packages" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+        </section>
+
+        <form action="/admin/packages/edit/<%= values._id %>" method="POST" enctype="multipart/form-data" class="form-card">
+            <div class="grid">
+                <div class="form-group">
+                    <label>Package Name</label>
+                    <input type="text" name="packageName" placeholder="Enter Package Name"
+                        value="<%= values.packageName %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Package Price (₹)</label>
+                    <input type="number" name="packagePrice" placeholder="Enter Price"
+                        value="<%= values.packagePrice %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Package Rating</label>
+                    <input type="number" step="0.1" min="0" max="5" name="packageRating"
+                        value="<%= values.packageRating %>" required>
+                </div>
+
+                <div class="form-group full">
+                    <label>Package Image</label>
+                    <input type="file" name="packageImage" accept="image/*">
+                    <p class="help-text">Leave empty to keep current image.</p>
+                    <% if(values.packageImage){ %>
+                        <img src="<%= values.packageImage %>" style="margin-top:10px; width:150px; border-radius:8px;">
+                    <% } %>
+                </div>
+
+                <div class="form-group full">
+                    <label>Package Description</label>
+                    <textarea name="packageDescription" rows="6" placeholder="Write package description..."
+                        required><%= values.packageDescription %></textarea>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="save-btn">
+                    <i class="fa-solid fa-floppy-disk"></i> Update Package
+                </button>
+                <a href="/admin/packages" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </main>
+
+    <script src="/js/admin/edit-package.js"></script>
+</body>
+</html>

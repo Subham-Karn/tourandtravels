@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Inquiry Details</title>
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/inquiry-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <%- include("../../partials/admin/slider",{user,currentPath}) %>
+
+    <main>
+        <section class="page-header">
+            <div>
+                <h1>Inquiry Details</h1>
+                <p>View customer inquiry information.</p>
+            </div>
+            <a href="/admin/inquire" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back to Inquiries
+            </a>
+        </section>
+
+        <div class="details-container">
+            <div class="detail-card">
+                <h2>Customer Information</h2>
+                <div class="detail-row">
+                    <span>Full Name</span>
+                    <strong><%= inquiry.fullName %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Email</span>
+                    <strong><%= inquiry.email %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Phone</span>
+                    <strong><%= inquiry.phone %></strong>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h2>Inquiry Details</h2>
+                <div class="detail-row">
+                    <span>Subject</span>
+                    <strong><%= inquiry.subject %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Message</span>
+                    <p class="message-text"><%= inquiry.message %></p>
+                </div>
+                <div class="detail-row">
+                    <span>Status</span>
+                    <span class="status <%= inquiry.status.toLowerCase() %>"><%= inquiry.status %></span>
+                </div>
+                <div class="detail-row">
+                    <span>Received On</span>
+                    <strong><%= new Date(inquiry.createdAt).toLocaleDateString() %></strong>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h2>Update Status</h2>
+                <form action="/admin/inquiries/status/<%= inquiry._id %>" method="POST" class="status-form">
+                    <select name="status">
+                        <option value="New" <%= inquiry.status === "New" ? "selected" : "" %>>New</option>
+                        <option value="Replied" <%= inquiry.status === "Replied" ? "selected" : "" %>>Replied</option>
+                        <option value="Closed" <%= inquiry.status === "Closed" ? "selected" : "" %>>Closed</option>
+                    </select>
+                    <button type="submit" class="save-btn">Update Status</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/admin/inquiry-details.js"></script>
+</body>
+</html>

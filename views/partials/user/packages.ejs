@@ -15,99 +15,73 @@
 
     <div class="box-container">
 
-        <% const packages = [
+        <% if(packages && packages.length){ %>
 
-        {
-            city:"Patna",
-            image:"image4.webp"
-        },
+            <% packages.forEach(pkg=>{ %>
 
-        {
-            city:"Bodh Gaya",
-            image:"bhodgaya.jpeg"
-        },
+                <div class="box">
 
-        {
-            city:"Nalanda",
-            image:"glass bridge.jpg"
-        },
+                    <img
+                        src="<%= pkg.packageImage %>"
+                        alt="<%= pkg.packageName %>"
+                    >
 
-        {
-            city:"Sitamarhi",
-            image:"image22.jpeg"
-        },
+                    <div class="content">
 
-        {
-            city:"Monastery",
-            image:"bodhgaya3.jpeg"
-        },
+                        <h3>
 
-        {
-            city:"Sasaram",
-            image:"sasaram2.jpeg"
-        }
+                            <i class="fas fa-map-marker-alt"></i>
 
-        ]; %>
+                            <%= pkg.packageName %>
 
-        <% packages.forEach(place=>{ %>
+                        </h3>
 
-        <div class="box">
+                        <p>
+                            <%= pkg.packageDescription.length > 100
+                                ? pkg.packageDescription.substring(0,100) + "..."
+                                : pkg.packageDescription %>
+                        </p>
 
-            <img
-                src="/images/<%= place.image %>"
-                alt="<%= place.city %>"
-            >
+                        <div class="stars">
 
-            <div class="content">
+                            <% for(let i = 1; i <= 5; i++){ %>
+                                <% if(i <= Math.round(pkg.packageRating)){ %>
+                                    <i class="fas fa-star"></i>
+                                <% } else { %>
+                                    <i class="far fa-star"></i>
+                                <% } %>
+                            <% } %>
 
-                <h3>
+                        </div>
 
-                    <i class="fas fa-map-marker-alt"></i>
+                        <div class="price">
 
-                    <%= place.city %>
+                            ₹<%= pkg.packagePrice.toLocaleString() %>
 
-                </h3>
+                        </div>
 
-                <p>
+                        <a href="/package/<%= pkg._id %>" class="btn">
+                            View Details
+                        </a>
 
-                    Experience the beauty of
-                    <%= place.city %> with our premium travel packages.
+                        <a href="#" class="btn book-now-btn" style="background:#28a745;" data-package="<%= pkg.packageName %>">
+                            <i class="fas fa-calendar-check"></i> Book Now
+                        </a>
 
-                </p>
-
-                <div class="stars">
-
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
+                    </div>
 
                 </div>
 
-                <div class="price">
+            <% }) %>
 
-                    ₹5,000
+        <% } else { %>
 
-                    <span>
-
-                        ₹8,000
-
-                    </span>
-
-                </div>
-
-                <a href="#book" class="btn">
-
-                    Book Now
-
-                </a>
-
+            <div style="text-align:center;padding:2rem;width:100%;">
+                <h2 style="color:#666;font-size:2rem;">No Packages Available</h2>
+                <p style="color:#999;font-size:1.2rem;">Check back later for exciting travel packages.</p>
             </div>
 
-        </div>
-
-        <% }) %>
+        <% } %>
 
     </div>
 

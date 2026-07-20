@@ -29,7 +29,7 @@ const signupUser = async (req, res) => {
       age: age,
       gender: gender,
     };
-    await User.insertOne(userPayload);
+    await User.create(userPayload);
     return res.render("pages/user/signup", {
       success: true,
       message: "User created successfully please login",
@@ -77,8 +77,12 @@ const loginUser = async (req, res) => {
       fullName: user.fullName,
       email: user.email,
       age: user.age,
+      role: user.role,
       gender: user.gender,
     };
+    if(normalize(user.role)==="admin"){
+      return res.redirect("/admin/dashboard");
+    }
     return res.redirect("/");
   } catch (error) {
     return res.render("pages/user/login", {
@@ -91,11 +95,7 @@ const loginUser = async (req, res) => {
 const logoutUser = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.render("index", {
-        success: false,
-        loading: loading,
-        message: "Something went wrong. Please try again.",
-      });
+      return res.redirect("/auth/login");
     }
     return res.redirect("/auth/login");
   });

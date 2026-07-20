@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Panel | <%= pageName %></title>
+
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/gallery.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+
+<%- include("../../partials/admin/slider",{user,currentPath}) %>
+
+<main>
+
+    <!-- Header -->
+
+    <section class="page-header">
+
+        <div>
+            <h1>Gallery</h1>
+            <p>Manage your travel gallery.</p>
+        </div>
+
+        <a href="/admin/gallery/add" class="add-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Gallery
+        </a>
+
+    </section>
+
+    <!-- Table -->
+
+    <section class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Gallery Name</th>
+                    <th>Location</th>
+                    <th>Category</th>
+                    <th>Rating</th>
+                    <th>Status</th>
+                    <th>Featured</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            <% if(galleries.length){ %>
+
+                <% galleries.forEach((gallery,index)=>{ %>
+
+                    <tr>
+
+                        <td><%= index+1 %></td>
+
+                        <td>
+
+                            <img
+                            src="<%= gallery.galleryImage %>"
+                            class="gallery-image">
+
+                        </td>
+
+                        <td>
+
+                            <strong><%= gallery.galleryName %></strong>
+
+                        </td>
+
+                        <td>
+
+                            <%= gallery.location %>,
+                            <%= gallery.state %>
+
+                        </td>
+
+                        <td>
+
+                            <span class="category">
+
+                                <%= gallery.category %>
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            ⭐ <%= gallery.rating %>
+
+                        </td>
+
+                        <td>
+
+                            <span class="status <%= gallery.status.toLowerCase() %>">
+
+                                <%= gallery.status %>
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <% if(gallery.featured){ %>
+
+                                <span class="featured yes">
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Yes
+
+                                </span>
+
+                            <% }else{ %>
+
+                                <span class="featured no">
+
+                                    <i class="fa-solid fa-circle-xmark"></i>
+
+                                    No
+
+                                </span>
+
+                            <% } %>
+
+                        </td>
+
+                        <td class="actions">
+
+                            <a href="/admin/gallery/edit/<%= gallery._id %>"
+                            class="action edit"
+                            title="Edit">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+
+                            <a href="/admin/gallery/delete/<%= gallery._id %>"
+                            class="action delete"
+                            title="Delete"
+                            onclick="return confirm('Are you sure you want to delete this gallery?')">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+
+                <% }) %>
+
+            <% }else{ %>
+
+                <tr>
+
+                    <td colspan="10" class="empty">
+
+                        <i class="fa-regular fa-image"></i>
+
+                        <h2>No Gallery Images</h2>
+
+                        <p>Add your first gallery image.</p>
+
+                    </td>
+
+                </tr>
+
+            <% } %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+</html>

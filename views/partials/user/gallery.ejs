@@ -1,7 +1,6 @@
 <section class="gallery" id="gallery">
 
     <h1 class="heading">
-
         <span>G</span>
         <span>A</span>
         <span>L</span>
@@ -9,62 +8,76 @@
         <span>E</span>
         <span>R</span>
         <span>Y</span>
-
     </h1>
-
-    <% const gallery = [
-
-        "GadiSagar.jpg",
-        "Nalanda.jpeg",
-        "banka.jpeg",
-        "image21.jpeg",
-        "image23.jpeg",
-        "image24.jpeg",
-        "image25.jpeg",
-        "bodhgaya2.jpeg",
-        "p-1.jpg",
-        "p-2.jpg",
-        "p-3.jpg",
-        "p-4.avif"
-
-    ]; %>
 
     <div class="box-container">
 
-        <% gallery.forEach(image=>{ %>
+        <% if(galleries.length){ %>
 
-            <div class="box">
+            <% galleries.forEach(gallery => { %>
 
-                <img
-                    src="/images/<%= image %>"
-                    alt="Tour Gallery"
-                >
+                <div class="box">
 
-                <div class="content">
+                    <img
+                        src="<%= gallery.galleryImage %>"
+                        alt="<%= gallery.galleryName %>">
 
-                    <h3>
+                    <div class="content">
 
-                        Amazing Place
+                        <h3>
+                            <%= gallery.galleryName %>
+                        </h3>
 
-                    </h3>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <%= gallery.location %>, <%= gallery.state || '' %>
+                        </p>
 
-                    <p>
+                        <p>
+                            <%= gallery.description.length > 100
+                                ? gallery.description.substring(0,100) + "..."
+                                : gallery.description %>
+                        </p>
 
-                        Explore breathtaking destinations with Bihar Travel.
+                        <div class="stars" style="margin: 8px 0;">
+                            <% for(let i = 1; i <= 5; i++){ %>
+                                <% if(i <= Math.round(gallery.rating)){ %>
+                                    <i class="fas fa-star"></i>
+                                <% } else { %>
+                                    <i class="far fa-star"></i>
+                                <% } %>
+                            <% } %>
+                        </div>
 
-                    </p>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <a href="/gallery/<%= gallery._id %>" class="btn">
+                                Explore Now
+                            </a>
 
-                    <a href="#book" class="btn">
+                            <% if(user){ %>
+                                <button class="btn book-gallery-index-btn"
+                                    style="background:#28a745;border:none;cursor:pointer;"
+                                    data-destination="<%= gallery.galleryName %>, <%= gallery.location %>">
+                                    <i class="fas fa-calendar-check"></i> Book
+                                </button>
+                            <% } else { %>
+                                <a href="/auth/login" class="btn" style="background:#28a745;">
+                                    <i class="fas fa-lock"></i> Login to Book
+                                </a>
+                            <% } %>
+                        </div>
 
-                        Book Now
-
-                    </a>
+                    </div>
 
                 </div>
 
-            </div>
+            <% }) %>
 
-        <% }) %>
+        <% } else { %>
+
+            <h2>No Gallery Found</h2>
+
+        <% } %>
 
     </div>
 

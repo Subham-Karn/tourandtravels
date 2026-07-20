@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Add Gallery</title>
+
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/add-gallery.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <%- include("../../partials/admin/slider",{user,currentPath}) %>
+        <% if(typeof error !=="undefined" && error){ %>
+
+            <div class="alert error">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+                <span>
+                    <%= error %>
+                </span>
+
+            </div>
+
+            <% } %>
+                <main>
+
+                    <section class="page-header">
+
+                        <div>
+                            <h1>Add Gallery</h1>
+                            <p>Create a new gallery destination.</p>
+                        </div>
+
+                        <a href="/admin/gallery" class="back-btn">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back
+                        </a>
+
+                    </section>
+
+                    <form action="/admin/gallery/add" method="POST" enctype="multipart/form-data" class="form-card">
+
+                        <div class="grid">
+
+                            <div class="form-group">
+                                <label>Gallery Name</label>
+                                <input type="text" name="galleryName" placeholder="Enter Gallery Name"
+                                    value="<%= values?.galleryName || '' %>" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" name="location" placeholder="Enter Location"
+                                    value="<%= values?.location || '' %>" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" name="state" value="<%= values?.state %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" name="country" value="<%= values?.country || 'India' %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Category</label>
+
+                                <select name="category" required>
+
+                                    <option value="">Select Category</option>
+
+                                    <option value="Beach" <%=values?.category==="Beach" ?"selected":"" %>>Beach</option>
+
+                                    <option value="Mountain" <%=values?.category==="Mountain" ?"selected":"" %>>Mountain
+                                    </option>
+
+                                    <option value="Hill Station" <%=values?.category==="Hill Station" ?"selected":"" %>
+                                        >Hill Station</option>
+
+                                    <option value="Temple" <%=values?.category==="Temple" ?"selected":"" %>>Temple
+                                    </option>
+
+                                    <option value="Historical" <%=values?.category==="Historical" ?"selected":"" %>
+                                        >Historical</option>
+
+                                    <option value="Wildlife" <%=values?.category==="Wildlife" ?"selected":"" %>>Wildlife
+                                    </option>
+
+                                    <option value="Adventure" <%=values?.category==="Adventure" ?"selected":"" %>
+                                        >Adventure</option>
+
+                                    <option value="Waterfall" <%=values?.category==="Waterfall" ?"selected":"" %>
+                                        >Waterfall</option>
+
+                                    <option value="Lake" <%=values?.category==="Lake" ?"selected":"" %>>Lake</option>
+
+                                    <option value="Desert" <%=values?.category==="Desert" ?"selected":"" %>>Desert
+                                    </option>
+
+                                    <option value="City" <%=values?.category==="City" ?"selected":"" %>>City</option>
+
+                                    <option value="Other" <%=values?.category==="Other" ?"selected":"" %>>Other</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Best Time To Visit</label>
+                                <input type="text" name="bestTimeToVisit" placeholder="October - February"
+                                    value="<%= values?.bestTimeToVisit || '' %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Opening Hours</label>
+                                <input type="text" name="openingHours" placeholder="9:00 AM - 6:00 PM"
+                                    value="<%= values?.openingHours || '' %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Entry Fee</label>
+                                <input type="text" name="entryFee" placeholder="₹200"
+                                    value="<%= values?.entryFee || '' %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Rating</label>
+                                <input type="number" step="0.1" min="0" max="5" name="rating"
+                                    value="<%= values?.rating || 5 %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status</label>
+
+                                <select name="status">
+
+                                    <option value="Active" <%=values?.status==="Active" ? "selected" : "" %>>
+
+                                        Active
+
+                                    </option>
+
+                                    <option value="Inactive" <%=values?.status==="Inactive" ? "selected" : "" %>>
+
+                                        Inactive
+
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Featured</label>
+
+                                <select name="featured">
+
+                                    <option value="false" <%=values?.featured==="false" ? "selected" : "" %>>
+
+                                        No
+
+                                    </option>
+
+                                    <option value="true" <%=values?.featured==="true" ? "selected" : "" %>>
+
+                                        Yes
+
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group full">
+
+                                <label>Gallery Image</label>
+
+                                <input type="file" name="galleryImage" accept="image/*" required>
+                                <img id="preview" style="display:none;
+                                margin-top:15px;
+                                width:220px;
+                                border-radius:10px;">
+                            </div>
+
+                            <div class="form-group full">
+
+                                <label>Description</label>
+
+                                <textarea name="description" rows="6" placeholder="Write destination description..."
+                                    required><%= values?.description || '' %></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="btn-group">
+
+                            <button type="submit" class="save-btn">
+
+                                <i class="fa-solid fa-floppy-disk"></i>
+
+                                Save Gallery
+
+                            </button>
+
+                            <a href="/admin/gallery" class="cancel-btn">
+
+                                Cancel
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </main>
+                <script src="/js/admin/add-gallery.js"></script>
+
+</body>
+
+</html>

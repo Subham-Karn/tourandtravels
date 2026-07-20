@@ -1,0 +1,32 @@
+<header>
+    <h1>Admin Panel</h1>
+
+    <nav>
+        <% const menus = [
+            { label: "Dashboard", link: "/admin/dashboard" },
+            { label: "Users", link: "/admin/users" },
+            { label: "Gallery", link: "/admin/gallery" },
+            { label: "Bookings", link: "/admin/bookings" },
+            { label: "Packages", link: "/admin/packages" },
+            { label: "Inquire", link: "/admin/inquire" }
+        ]; %>
+
+        <% menus.forEach(item => { %>
+            <a
+                href="<%= item.link %>"
+                class="<%= currentPath.includes(item.link) ? 'active' : '' %>"
+            >
+                <%= item.label %>
+            </a>
+        <% }) %>
+    </nav>
+    <section>
+        <span><%= user.fullName.charAt(0) %></span>
+
+        <div>
+            <h3><%= user.fullName %></h3>
+            <p><%= user.email %></p>
+            <a href="/auth/logout">Logout</a>
+        </div>
+    </section>
+</header>

@@ -7,6 +7,7 @@ import session from "express-session";
 // routes config;
 import authRoutes from "./routes/authRoutes.js";
 import indexRoute from "./routes/indexRoute.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 // server config.
 const PORT = process.env.PORT;
@@ -35,6 +36,7 @@ server.use(session({
 //  routes config.
 server.use("/" , indexRoute);
 server.use("/auth", authRoutes);
+server.use("/admin", adminRoutes);
 
 // server start
 server.listen(PORT , ()=>{

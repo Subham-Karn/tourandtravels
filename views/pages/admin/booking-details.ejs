@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Booking Details</title>
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/booking-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <%- include("../../partials/admin/slider",{user,currentPath}) %>
+
+    <main>
+        <section class="page-header">
+            <div>
+                <h1>Booking Details</h1>
+                <p>View and manage booking information.</p>
+            </div>
+            <a href="/admin/bookings" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back to Bookings
+            </a>
+        </section>
+
+        <div class="details-container">
+            <div class="detail-card">
+                <h2>Booking Information</h2>
+                <div class="detail-row">
+                    <span>Destination</span>
+                    <strong><%= booking.destination %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Guests</span>
+                    <strong><%= booking.guests %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Arrival Date</span>
+                    <strong><%= new Date(booking.arrivalDate).toLocaleDateString() %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Leaving Date</span>
+                    <strong><%= new Date(booking.leavingDate).toLocaleDateString() %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Total Price</span>
+                    <strong>₹<%= booking.totalPrice ? booking.totalPrice.toLocaleString() : "0" %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Status</span>
+                    <span class="status <%= booking.bookingStatus.toLowerCase() %>"><%= booking.bookingStatus %></span>
+                </div>
+                <% if(booking.specialRequest){ %>
+                    <div class="detail-row">
+                        <span>Special Request</span>
+                        <strong><%= booking.specialRequest %></strong>
+                    </div>
+                <% } %>
+                <div class="detail-row">
+                    <span>Booked On</span>
+                    <strong><%= new Date(booking.createdAt).toLocaleDateString() %></strong>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h2>Customer Information</h2>
+                <div class="detail-row">
+                    <span>Name</span>
+                    <strong><%= booking.userId?.fullName || "N/A" %></strong>
+                </div>
+                <div class="detail-row">
+                    <span>Email</span>
+                    <strong><%= booking.userId?.email || "N/A" %></strong>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h2>Update Status</h2>
+                <form action="/admin/bookings/status/<%= booking._id %>" method="POST" class="status-form">
+                    <select name="status">
+                        <option value="Pending" <%= booking.bookingStatus === "Pending" ? "selected" : "" %>>Pending</option>
+                        <option value="Confirmed" <%= booking.bookingStatus === "Confirmed" ? "selected" : "" %>>Confirmed</option>
+                        <option value="Completed" <%= booking.bookingStatus === "Completed" ? "selected" : "" %>>Completed</option>
+                        <option value="Cancelled" <%= booking.bookingStatus === "Cancelled" ? "selected" : "" %>>Cancelled</option>
+                    </select>
+                    <button type="submit" class="save-btn">Update Status</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/admin/booking-details.js"></script>
+</body>
+</html>

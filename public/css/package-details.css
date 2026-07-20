@@ -1,0 +1,201 @@
+.package-detail-container {
+    margin-top: 80px;
+}
+
+.package-hero {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.package-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.package-hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #fff;
+    width: 90%;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content .rating {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.hero-content .rating i {
+    color: #ffa500;
+    margin: 0 2px;
+}
+
+.hero-content .rating span {
+    margin-left: 8px;
+    color: rgba(255,255,255,0.9);
+}
+
+.hero-content .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffa500;
+}
+
+.content-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.package-info h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.package-info p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+.booking-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.booking-section h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 3px solid #ffa500;
+}
+
+.booking-form .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.booking-form label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.booking-form input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.booking-form input:focus {
+    border-color: #ffa500;
+    outline: none;
+}
+
+.booking-form input[readonly] {
+    background: #f8f9fa;
+    color: #666;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-book {
+    width: 100%;
+    padding: 14px;
+    background: #ffa500;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 0.5rem;
+}
+
+.btn-book:hover {
+    background: #ff8c00;
+}
+
+.btn-book i {
+    margin-right: 8px;
+}
+
+.login-prompt {
+    text-align: center;
+    padding: 2rem;
+}
+
+.login-prompt i {
+    font-size: 4rem;
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
+.login-prompt h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.login-prompt p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.login-prompt .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #ffa500;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.login-prompt .btn:hover {
+    background: #ff8c00;
+}
+
+@media (max-width: 768px) {
+    .package-hero { height: 300px; }
+    .hero-content h1 { font-size: 2rem; }
+    .content-wrapper { grid-template-columns: 1fr; padding: 2rem 15px; }
+    .form-row { grid-template-columns: 1fr; }
+}

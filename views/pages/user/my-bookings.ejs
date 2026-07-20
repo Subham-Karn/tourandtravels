@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings | Bihar Travel</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/my-bookings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <%- include("../../partials/user/navbar", {user}) %>
+
+    <main class="bookings-container">
+        <h1 class="page-title">My Bookings</h1>
+
+        <% if(bookings.length){ %>
+
+            <div class="bookings-grid">
+
+                <% bookings.forEach(booking => { %>
+
+                    <div class="booking-card">
+                        <div class="booking-header">
+                            <h3><%= booking.destination %></h3>
+                            <span class="status <%= booking.bookingStatus.toLowerCase() %>">
+                                <%= booking.bookingStatus %>
+                            </span>
+                        </div>
+
+                        <div class="booking-details">
+                            <div class="detail">
+                                <i class="fas fa-users"></i>
+                                <span><%= booking.guests %> Guest(s)</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Arrival: <%= new Date(booking.arrivalDate).toLocaleDateString() %></span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-calendar-times"></i>
+                                <span>Leaving: <%= new Date(booking.leavingDate).toLocaleDateString() %></span>
+                            </div>
+                            <% if(booking.totalPrice){ %>
+                                <div class="detail">
+                                    <i class="fas fa-rupee-sign"></i>
+                                    <span>₹<%= booking.totalPrice.toLocaleString() %></span>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <div class="booking-footer">
+                            <small>Booked on: <%= new Date(booking.createdAt).toLocaleDateString() %></small>
+                        </div>
+                    </div>
+
+                <% }) %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+                <i class="fas fa-suitcase-rolling"></i>
+                <h2>No Bookings Yet</h2>
+                <p>You haven't made any bookings yet. Start exploring our packages!</p>
+                <a href="/#packages" class="btn">Explore Packages</a>
+            </div>
+
+        <% } %>
+
+    </main>
+
+    <%- include("../../partials/user/footer") %>
+    <script src="/js/script.js"></script>
+</body>
+</html>

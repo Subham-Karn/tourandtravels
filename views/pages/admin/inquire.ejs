@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | <%= pageName %></title>
+
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/inquire.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+<%- include("../../partials/admin/slider",{user,currentPath}) %>
+
+<main>
+
+    <!-- Page Header -->
+
+    <section class="page-header">
+
+        <div>
+            <h1>Customer Inquiries</h1>
+            <p>View and manage all customer inquiries.</p>
+        </div>
+
+    </section>
+
+    <!-- Stats -->
+
+    <section class="stats">
+
+        <div class="card">
+            <p>Total Inquiries</p>
+            <h1><%= inquiries.length %></h1>
+        </div>
+
+        <div class="card">
+            <p>New</p>
+            <h1><%= inquiries.filter(i=>i.status==="New").length %></h1>
+        </div>
+
+        <div class="card">
+            <p>Replied</p>
+            <h1><%= inquiries.filter(i=>i.status==="Replied").length %></h1>
+        </div>
+
+        <div class="card">
+            <p>Closed</p>
+            <h1><%= inquiries.filter(i=>i.status==="Closed").length %></h1>
+        </div>
+
+    </section>
+
+    <!-- Table -->
+
+    <section class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            <% if(inquiries.length){ %>
+
+                <% inquiries.forEach((inquiry,index)=>{ %>
+
+                    <tr>
+
+                        <td><%= index+1 %></td>
+
+                        <td><%= inquiry.fullName %></td>
+
+                        <td><%= inquiry.email %></td>
+
+                        <td><%= inquiry.phone %></td>
+
+                        <td><%= inquiry.subject %></td>
+
+                        <td>
+                            <span class="status <%= inquiry.status.toLowerCase() %>">
+                                <%= inquiry.status %>
+                            </span>
+                        </td>
+
+                        <td>
+                            <%= new Date(inquiry.createdAt).toLocaleDateString() %>
+                        </td>
+
+                        <td>
+
+                            <a href="/admin/inquiries/<%= inquiry._id %>" class="action view">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+
+                            <a href="/admin/inquiries/delete/<%= inquiry._id %>" class="action delete">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            <% } else { %>
+
+                <tr>
+
+                    <td colspan="8" class="empty">
+
+                        <i class="fa-regular fa-envelope-open"></i>
+
+                        <h2>No Inquiries Found</h2>
+
+                        <p>Customer inquiries will appear here.</p>
+
+                    </td>
+
+                </tr>
+
+            <% } %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+<script src="/js/admin/inquire.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Edit Gallery</title>
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <link rel="stylesheet" href="/css/admin/edit-gallery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <%- include("../../partials/admin/slider",{user,currentPath}) %>
+
+    <% if(typeof error !== "undefined" && error){ %>
+        <div class="alert error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span><%= error %></span>
+        </div>
+    <% } %>
+
+    <main>
+        <section class="page-header">
+            <div>
+                <h1>Edit Gallery</h1>
+                <p>Update gallery destination details.</p>
+            </div>
+            <a href="/admin/gallery" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+        </section>
+
+        <form action="/admin/gallery/edit/<%= values._id %>" method="POST" enctype="multipart/form-data" class="form-card">
+            <div class="grid">
+                <div class="form-group">
+                    <label>Gallery Name</label>
+                    <input type="text" name="galleryName" placeholder="Enter Gallery Name"
+                        value="<%= values.galleryName %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" name="location" placeholder="Enter Location"
+                        value="<%= values.location %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" name="state" value="<%= values.state || '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" name="country" value="<%= values.country || 'India' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="">Select Category</option>
+                        <% const categories = ["Beach","Mountain","Hill Station","Temple","Historical","Wildlife","Adventure","Waterfall","Lake","Desert","City","Other"]; %>
+                        <% categories.forEach(cat => { %>
+                            <option value="<%= cat %>" <%= values.category === cat ? "selected" : "" %>><%= cat %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Best Time To Visit</label>
+                    <input type="text" name="bestTimeToVisit" placeholder="October - February"
+                        value="<%= values.bestTimeToVisit || '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Opening Hours</label>
+                    <input type="text" name="openingHours" placeholder="9:00 AM - 6:00 PM"
+                        value="<%= values.openingHours || '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Entry Fee</label>
+                    <input type="text" name="entryFee" placeholder="₹200"
+                        value="<%= values.entryFee || '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Rating</label>
+                    <input type="number" step="0.1" min="0" max="5" name="rating"
+                        value="<%= values.rating || 5 %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status">
+                        <option value="Active" <%= values.status === "Active" ? "selected" : "" %>>Active</option>
+                        <option value="Inactive" <%= values.status === "Inactive" ? "selected" : "" %>>Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Featured</label>
+                    <select name="featured">
+                        <option value="false" <%= !values.featured ? "selected" : "" %>>No</option>
+                        <option value="true" <%= values.featured ? "selected" : "" %>>Yes</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label>Gallery Image</label>
+                    <input type="file" name="galleryImage" accept="image/*">
+                    <p class="help-text">Leave empty to keep current image.</p>
+                    <% if(values.galleryImage){ %>
+                        <img src="<%= values.galleryImage %>" style="margin-top:10px; width:200px; border-radius:8px;">
+                    <% } %>
+                </div>
+
+                <div class="form-group full">
+                    <label>Description</label>
+                    <textarea name="description" rows="6" placeholder="Write destination description..."
+                        required><%= values.description %></textarea>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="save-btn">
+                    <i class="fa-solid fa-floppy-disk"></i> Update Gallery
+                </button>
+                <a href="/admin/gallery" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </main>
+
+    <script src="/js/admin/edit-gallery.js"></script>
+</body>
+</html>
