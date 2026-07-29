@@ -46,26 +46,10 @@ window.addEventListener("scroll", () => {
     searchBtn?.classList.remove("fa-times");
     searchBar?.classList.remove("active");
 
-    menuBar?.classList.remove("fa-times");
+    menu?.classList.remove("fa-times");
     navbar?.classList.remove("active");
 
 });
-
-
-/* =========================================================
-   Mobile Menu
-========================================================= */
-
-if (menuBar && navbar) {
-
-    menuBar.addEventListener("click", () => {
-
-        menuBar.classList.toggle("fa-times");
-        navbar.classList.toggle("active");
-
-    });
-
-}
 
 
 /* =========================================================

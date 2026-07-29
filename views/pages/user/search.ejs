@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - <%= query %> | Bihar Travel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+<body>
+
+    <%- include("../../partials/user/navbar", {user}) %>
+
+    <section class="search-results">
+        <h1 class="heading">
+            <span>S</span>
+            <span>E</span>
+            <span>A</span>
+            <span>R</span>
+            <span>C</span>
+            <span>H</span>
+        </h1>
+
+        <div class="search-info">
+            <p>Results for: <strong>"<%= query %>"</strong></p>
+            <p class="result-count"><%= totalResults %> result<%= totalResults !== 1 ? 's' : '' %> found</p>
+        </div>
+
+        <% if (packages.length === 0 && galleries.length === 0) { %>
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No results found</h3>
+                <p>Try searching for different keywords like "patna", "temple", "mountain", etc.</p>
+                <a href="/" class="btn">Back to Home</a>
+            </div>
+        <% } else { %>
+
+            <% if (packages.length > 0) { %>
+                <div class="section-group">
+                    <h2 class="section-title">
+                        <i class="fas fa-box"></i> Packages (<%= packages.length %>)
+                    </h2>
+                    <div class="results-grid">
+                        <% packages.forEach(pkg => { %>
+                            <a href="/package/<%= pkg._id %>" class="result-card">
+                                <div class="card-img">
+                                    <img src="<%= pkg.packageImage %>" alt="<%= pkg.packageName %>">
+                                </div>
+                                <div class="card-body">
+                                    <h3><%= pkg.packageName %></h3>
+                                    <div class="stars">
+                                        <% for(let i = 0; i < 5; i++) { %>
+                                            <i class="<%= i < Math.round(pkg.packageRating) ? 'fas' : 'far' %> fa-star"></i>
+                                        <% } %>
+                                    </div>
+                                    <p><%= pkg.packageDescription.substring(0, 120) %><%= pkg.packageDescription.length > 120 ? '...' : '' %></p>
+                                    <div class="price">
+                                        ₹<%= pkg.packagePrice.toLocaleString() %>
+                                    </div>
+                                </div>
+                            </a>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } %>
+
+            <% if (galleries.length > 0) { %>
+                <div class="section-group">
+                    <h2 class="section-title">
+                        <i class="fas fa-images"></i> Destinations / Gallery (<%= galleries.length %>)
+                    </h2>
+                    <div class="results-grid">
+                        <% galleries.forEach(gallery => { %>
+                            <a href="/gallery/<%= gallery._id %>" class="result-card">
+                                <div class="card-img">
+                                    <img src="<%= gallery.galleryImage %>" alt="<%= gallery.galleryName %>">
+                                    <span class="category-tag"><%= gallery.category %></span>
+                                </div>
+                                <div class="card-body">
+                                    <h3><%= gallery.galleryName %></h3>
+                                    <p class="location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <%= gallery.location %><%= gallery.state ? ', ' + gallery.state : '' %>
+                                    </p>
+                                    <p><%= gallery.description.substring(0, 120) %><%= gallery.description.length > 120 ? '...' : '' %></p>
+                                </div>
+                            </a>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } %>
+
+        <% } %>
+    </section>
+
+    <%- include("../../partials/user/footer") %>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

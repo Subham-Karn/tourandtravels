@@ -930,50 +930,6 @@ header{
     width:18px;
 }
 
-/* Search */
-
-.search-bar-container{
-
-    position:absolute;
-
-    top:100%;
-    left:0;
-
-    width:100%;
-
-    padding:15px;
-
-    background:#fff;
-
-    display:none;
-}
-
-.search-bar-container.active{
-
-    display:flex;
-}
-
-.search-bar-container input{
-
-    flex:1;
-
-    padding:12px;
-
-    border:1px solid #ddd;
-    border-radius:6px;
-}
-
-.search-bar-container label{
-
-    margin-left:10px;
-
-    font-size:20px;
-
-    color:#f9a825;
-
-    cursor:pointer;
-}
-
 @media (max-width:768px){
 
   #menu-bar{

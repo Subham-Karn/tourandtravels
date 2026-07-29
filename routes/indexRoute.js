@@ -16,6 +16,49 @@ router.get("/", async (req, res) => {
     });
 });
 
+// Search route - searches both packages and gallery
+router.get("/search", async (req, res) => {
+    try {
+        const query = req.query.q?.trim();
+        if (!query) {
+            return res.redirect("/");
+        }
+
+        const regex = new RegExp(query, "i");
+
+        const packages = await Package.find({
+            $or: [
+                { packageName: regex },
+                { packageDescription: regex }
+            ]
+        }).sort({ createdAt: -1 });
+
+        const galleries = await Gallery.find({
+            status: "Active",
+            $or: [
+                { galleryName: regex },
+                { location: regex },
+                { state: regex },
+                { country: regex },
+                { category: regex },
+                { description: regex }
+            ]
+        }).sort({ createdAt: -1 });
+
+        res.render("pages/user/search", {
+            user: req.session.user,
+            query,
+            packages,
+            galleries,
+            totalResults: packages.length + galleries.length
+        });
+
+    } catch (error) {
+        console.log("Search error:", error);
+        res.redirect("/");
+    }
+});
+
 router.get("/profile", isLoggedIn, (req, res) => {
     res.render("pages/user/profile", {
         user: req.session.user
